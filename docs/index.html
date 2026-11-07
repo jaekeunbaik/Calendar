@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>데스크탑 캘린더 - 세련된 바탕화면 일정 & 할 일 위젯</title>
+  <meta name="description" content="한국 공휴일 자동 계산, 아크릴 글래스모피즘 디자인, 초소형 미니 시계 위젯 모드를 지원하는 최고의 Windows 바탕화면 캘린더 위젯입니다.">
+  
+  <!-- Pretendard Font -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
+    }
+    .glow-bg {
+      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.18) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Glow Background Effect -->
+  <div class="fixed inset-0 glow-bg pointer-events-none -z-10"></div>
+
+  <!-- Header / Navigation -->
+  <header class="w-full border-b border-white/10 sticky top-0 z-50 bg-[#0b0f19]/80 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-lg shadow-lg shadow-indigo-500/30">
+          📅
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-base tracking-tight text-white">데스크탑 캘린더</span>
+          <span class="text-[10px] text-indigo-400 font-mono font-medium -mt-1">Desktop Calendar Widget</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="#features" class="text-sm text-slate-300 hover:text-white transition-colors">주요 기능</a>
+        <a href="#download" class="text-sm text-slate-300 hover:text-white transition-colors">다운로드</a>
+        <a 
+          href="https://github.com/jaekeunbaik/Calendar" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-white/15 bg-white/5 hover:bg-white/10 text-xs font-semibold transition-all"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto px-6 pt-16 pb-20 flex flex-col items-center text-center">
+    <!-- Version Tag -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-400 text-xs font-semibold mb-6 animate-pulse">
+      <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+      v1.0.0 공식 출시 · Windows 10/11 완벽 지원
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-tight sm:leading-tight">
+      바탕화면에 자연스럽게 녹아드는<br>
+      <span class="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        스마트 데스크탑 캘린더
+      </span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="mt-6 text-base sm:text-lg text-slate-300 max-w-2xl leading-relaxed">
+      한국 공휴일 자동 계산, 아크릴 글래스모피즘 디자인, 초소형 미니 시계 위젯 모드까지.<br class="hidden sm:inline">
+      업무와 일상의 생산성을 높여주는 최고의 데스크탑 동반자입니다.
+    </p>
+
+    <!-- Download CTA Buttons -->
+    <div id="download" class="mt-9 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+      <a 
+        href="https://github.com/jaekeunbaik/Calendar/releases/latest" 
+        class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-base shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-[0.98] transition-all"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+          <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.901-1.799"/>
+        </svg>
+        <span>Windows 설치 파일 다운로드 (.exe)</span>
+      </a>
+
+      <a 
+        href="https://github.com/jaekeunbaik/Calendar/releases/latest" 
+        class="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white font-semibold text-sm transition-all"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        <span>무설치 포터블 버전 (.zip)</span>
+      </a>
+    </div>
+
+    <div class="mt-4 flex items-center gap-4 text-xs text-slate-400">
+      <span class="flex items-center gap-1">✓ 무료 & 오픈소스</span>
+      <span class="flex items-center gap-1">✓ 100% 로컬 데이터 저장</span>
+      <span class="flex items-center gap-1">✓ 광고 없음</span>
+    </div>
+
+    <!-- Widget Screenshot Preview -->
+    <div class="mt-14 w-full max-w-5xl rounded-2xl overflow-hidden p-2 bg-gradient-to-b from-white/10 to-transparent border border-white/15 shadow-2xl">
+      <div class="rounded-xl overflow-hidden relative group">
+        <img 
+          src="./assets/widget-preview.jpg" 
+          alt="데스크탑 캘린더 실제 실행 화면" 
+          class="w-full h-auto object-cover rounded-xl shadow-2xl transition-transform duration-500 group-hover:scale-[1.01]"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-transparent to-transparent opacity-30 pointer-events-none"></div>
+      </div>
+      <p class="text-xs text-slate-400 mt-2 text-center">▲ 실제 윈도우 바탕화면에서 구동 중인 데스크탑 캘린더 위젯 모습</p>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section id="features" class="max-w-6xl mx-auto px-6 py-16">
+    <div class="text-center mb-14">
+      <h2 class="text-xs font-bold uppercase tracking-wider text-indigo-400 mb-2">핵심 기능</h2>
+      <p class="text-3xl sm:text-4xl font-extrabold text-white">필요한 모든 기능이 바탕화면에</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Feature 1 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-2xl mb-4">
+          🗓️
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">스마트 한국 공휴일 자동 계산</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          2024~2028년 양력/음력 명절(설날, 추석) 및 대체공휴일을 자동 계산하여 달력에 빨간색으로 표기하고 명칭을 직관적으로 보여줍니다.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-2xl mb-4">
+          📌
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">항상 위에 고정 & 자유로운 드래그</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          상단 헤더를 마우스로 끌어 바탕화면 원하는 위치 어디든 배치할 수 있으며, 핀 버튼으로 항상 위에 띄워두거나 배경처럼 둘 수 있습니다.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-2xl mb-4">
+          📱
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">초소형 미니 위젯 모드</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          화면을 많이 차지하지 않는 340x460 콤팩트 모드로 전환하면, 실시간 초단위 디지털 시계와 오늘의 필수 일정 체크리스트로 변신합니다.
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+          📝
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">달력 셀 일정 내용 미리보기</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          단순한 점(Dot) 표시를 넘어 날짜 칸에 일정 제목과 시간이 깔끔한 칩 형태로 표시되어 한눈에 일정을 파악할 수 있습니다.
+        </p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-2xl mb-4">
+          🌓
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">투명도 조절 & 3가지 감성 테마</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          30% ~ 100% 실시간 투명도 슬라이더와 함께 다크(Dark), 화이트(Light), 아크릴 글래스(Glass) 3가지 테마를 취향대로 선택하세요.
+        </p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="glass-card p-6 rounded-2xl transition-all">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-2xl mb-4">
+          💾
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">시스템 트레이 & 안전한 로컬 저장</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          윈도우 작업 표시줄 트레이와 완벽 연동되며, 모든 일정과 설정은 외부 서버가 아닌 내 PC에 안전하게 JSON 형태로 백업 및 복원됩니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Steps -->
+  <section class="max-w-4xl mx-auto px-6 py-16 border-t border-white/10">
+    <div class="text-center mb-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white">간편한 3단계 시작하기</h2>
+      <p class="text-sm text-slate-400 mt-2">별도의 복잡한 가입이나 인터넷 연결 없이 바로 실행할 수 있습니다.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+        <div class="w-10 h-10 rounded-full bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center mx-auto mb-3">1</div>
+        <h4 class="font-bold text-white mb-1">다운로드</h4>
+        <p class="text-xs text-slate-400">Windows용 설치 파일(.exe) 또는 무설치 압축 파일(.zip)을 내려받습니다.</p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+        <div class="w-10 h-10 rounded-full bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center mx-auto mb-3">2</div>
+        <h4 class="font-bold text-white mb-1">실행 및 위치 지정</h4>
+        <p class="text-xs text-slate-400">실행 후 바탕화면 원하는 곳으로 드래그하여 배치합니다. 위치는 자동 저장됩니다.</p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+        <div class="w-10 h-10 rounded-full bg-indigo-600/30 text-indigo-400 font-bold flex items-center justify-center mx-auto mb-3">3</div>
+        <h4 class="font-bold text-white mb-1">일정 등록 및 활용</h4>
+        <p class="text-xs text-slate-400">날짜를 클릭하여 새로운 일정을 추가하고 핀 고정 또는 미니 모드를 활용해 보세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-white/10 py-10 bg-[#070a10]">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-400">데스크탑 캘린더</span>
+        <span>·</span>
+        <span>만든 사람: jaekeunbaik</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/jaekeunbaik/Calendar" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">GitHub Repository</a>
+        <a href="https://github.com/jaekeunbaik/Calendar/issues" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">버그 제보 및 건의</a>
+        <a href="https://github.com/jaekeunbaik/Calendar/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300 transition-colors">라이선스 (ISC)</a>
+      </div>
+
+      <div>
+        © 2026 jaekeunbaik. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
